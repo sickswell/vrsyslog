@@ -34,16 +34,20 @@
 <p><b>vrsyslog</b> is a Graphical User Interface for rsyslog. It performs basic analisys based on the log data, and let's you access raw log data.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
-<p>TODO: list dependencies</p>
+<p>
+<ul>
+  <li>LAMP system</li>
+  <li>rsyslog with mysql support</li>
+</ul>
+</p>
 
 
 <h3>
 <a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Installation</h3>
 
 <p>Place the public_html folder in a web accessible directory (make sure the web server process has write access to the public_html/assets and public_html/protected/runtime folders).</p>
-<p>Edit the configuration file public_html/protected/vrsyslog.ini to suite your needs.</p>
 <p>Read INSTALLATION_instructions.txt for more details.</p>
 
 <pre><code>$ cd your_repo_root/repo_name
@@ -54,9 +58,15 @@ $ git checkout gh-pages
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Configuration</h3>
 
-<p>TODO: configuration <code>rsyslog</code> and <code>vrsyslog</code></p>
+<p>Edit the configuration file <code>public_html/protected/vrsyslog.ini</code> to suite your needs.</p>
 
 <h3>
+
+<h3>
+<a class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<p>Point your browser to the vrsyslog host. Default username and password are: admin / admin. Use the Dashoboard view to get a quick snapshot of what's going on with your logs. Use the Logs view to access raw log data.</p>
+
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>Having trouble withv vrsyslog? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
