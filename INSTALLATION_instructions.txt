@@ -1,0 +1,55 @@
+# 1. Preliminary tasks
+Make sure you have the basic platform in place (i.e. Linux server).
+Or, set-up a new LAMP system, if you don't have one already.
+A Tutorial can be found here: https://wiki.debian.org/LaMp
+
+# 2. rsyslog configuration
+In most new Linux distributions, rsyslog comes installed as the default syslog.
+By default rsyslog logs to files.
+You must configure it to log to a Database instead, for vrsyslog to work.
+
+Ubuntu example:
+$>sudo apt-get install rsyslog-mysql
+
+- Suggestion: use dbconfig to automatically create the DB and tables.
+When asked "Configure database for rsyslog-mysql with dbconfig-common?", answer YES, to use the default configutation.
+You will be asked for the "Password of the database's administrative user:" (your DB admin password)
+Then, you will be asked for "MySQL application password for rsyslog-mysql:" (suggestion "vrsyslog")
+And "Password confirmation:" (suggestion "vrsyslog")
+Remember the password you define for rsyslog-mysql (default user: "rsyslog", default password: "vrsyslog")
+
+- Manual configuration (ONLY NEEDED if you do NOT use dbconfig to automatically configure the DB and tables):
+You will need the createDB.sql file located in vrsyslog/resources directory.
+$mysql <./resources/createDB.sql
+$mysql -u root -p
+mysql> CREATE USER 'rsyslog'@'localhost' IDENTIFIED BY 'vrsyslog';
+mysql>GRANT ALL ON Syslog.* TO 'rsyslog'@'localhost';
+mysql>exit
+
+Make sure rsyslog is working properly and logging to the DB.
+You can do this either from the CLI (mysql>), or phpMyAdmin.
+You should see entries in the SystemEvents table in the Syslog DB.
+Example:
+$ logger testing123 (generate a test log message)
+$ mysql -u rsyslog -p
+Enter password: vrsyslog
+mysql> USE Syslog
+Database changed
+mysql> SELECT id FROM SystemEvents limit 1;
++----+
+| id |
++----+
+|  1 |
++----+
+1 row in set (0.00 sec)
+
+Now that rsyslog is properly logging to the DB, you can install and use vrsyslog.
+
+
+# 3. Install and configure vrsyslog
+Untar vrsyslog.tar.gz and make the 'public_html' folder accesible from the web.
+NOTE: Make sure the assets and protected/runtime dirs are writable by the webserver process.
+(a quick fix could be: sudo chgrp www-data assets)
+
+Congifure your desired user name and password and any other DB settings if needed, by editing the configuration file (public_html/protected/vrsyslog.ini).
+

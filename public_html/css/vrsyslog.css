@@ -1,0 +1,37 @@
+@media screen and (min-width: 960px) {#page {padding-top: 60px;}}
+
+/* menu items */
+
+.navbar-inner {
+	background-color: #064280;
+	background-image: none;
+	background-repeat: no-repeat;
+	filter: none; 
+
+}
+   
+/* set the background of the menu items */
+.navbar .nav > li > a {
+	color: white;
+	text-shadow: none;
+}
+
+/* set hover and focus */
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+	background-color: #074B95;
+	color: white;
+}
+
+/* set active item */
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+	background-color: #2A6AA8;
+	color: white;
+}
+
+/* set font color and background of the brand */
+.navbar .brand {
+	text-shadow: none;
+}
