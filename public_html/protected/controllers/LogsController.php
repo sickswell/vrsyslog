@@ -50,15 +50,27 @@ class LogsController extends Controller
 	 */
 	public function actionList()
 	{
+
 		$model=new Logs('search');
 		$model->unsetAttributes();
 
 		if(isset($_GET['priority']))
 			$model->Priority=(int)$_GET['priority'];
 
+		if(isset($_GET['facility']))
+			$model->Facility=(int)$_GET['facility'];
+
+		if(isset($_GET['fromhost']))
+			$model->FromHost=$_GET['fromhost'];
+
+		if(isset($_GET['receivedat']))
+			$model->ReceivedAt=$_GET['receivedat'];
+
+
 		if (isset($_GET['Logs'])) {
 			$model->attributes=$_GET['Logs'];
 		}
+
 
 		$model->dbCriteria->order='ReceivedAt DESC';
 		$this->render('list',array(

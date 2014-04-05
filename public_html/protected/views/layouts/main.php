@@ -8,6 +8,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/vrsyslog.css" />
 </head>
+
 <body>
 	<?php $this->widget('bootstrap.widgets.TbNavbar',array(
     'items'=>array(
@@ -15,6 +16,7 @@
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
             	array('label'=>'Dashboard', 'url'=>array('/dashboard/dashboard'), 'visible'=>!Yii::app()->user->isGuest),
+            	array('label'=>'Hosts', 'url'=>array('/hosts/list'), 'visible'=>!Yii::app()->user->isGuest),
             	array('label'=>'Logs', 'url'=>array('/logs/list'), 'visible'=>!Yii::app()->user->isGuest),
             ),
         ),
@@ -22,7 +24,7 @@
             'class'=>'bootstrap.widgets.TbNav',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-  			array('label'=>'Logout', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+  				array('label'=>'Logout', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
             ),
         ),),
 	)); ?>

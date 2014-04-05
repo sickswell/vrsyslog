@@ -31,6 +31,9 @@
  */
 class Logs extends CActiveRecord
 {
+	public $start=FALSE;
+	public $end=FALSE;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -49,7 +52,7 @@ class Logs extends CActiveRecord
 		return array(
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID, ReceivedAt, DeviceReportedTime, Facility, Priority, FromHost, Message, InfoUnitID, SysLogTag', 'safe', 'on'=>'search'),
+			array('ReceivedAt, Facility, Priority, FromHost, Message, SysLogTag, daterange', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,13 +98,24 @@ class Logs extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ID',$this->ID,true);
-		$criteria->compare('ReceivedAt',$this->ReceivedAt,true);
-		$criteria->compare('DeviceReportedTime',$this->DeviceReportedTime,true);
+		//daterange
+		$datefilter=new DatefilterForm;
+		$datefilter->daterange= $this->ReceivedAt;
+	 	// validate
+	 	if($datefilter->validate()) {
+	 		$this->start = ($datefilter->startdateTS ? date("Y-m-d", $datefilter->startdateTS) : false);
+	 		$this->end = ($datefilter->enddateTS ? date("Y-m-d", ($datefilter->enddateTS)) : false);
+	 		if ($this->start & $this->end) {
+	 			$criteria->compare('ReceivedAt','>='.$this->start);
+	 			$criteria->compare('ReceivedAt','<='.$this->end.' 23:59:59');
+	 		}
+		} else {
+ 			//filter normal
+ 			$criteria->compare('ReceivedAt',$this->ReceivedAt,true);	
+ 		}
+
 		$criteria->compare('Facility',$this->Facility);
 		$criteria->compare('Priority',$this->Priority);
 		$criteria->compare('FromHost',$this->FromHost,true);

@@ -11,6 +11,7 @@ return array(
 	'name'=>'vrsyslog',
 	'aliases' => array(
         'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
     ),
 	'preload'=>array('log'),
 	'import'=>array(
@@ -32,6 +33,9 @@ return array(
 		),
 		'bootstrap'=>array(
             'class'=>'bootstrap.components.TbApi',
+        ),
+        'yiiwheels' => array(
+            'class' => 'yiiwheels.YiiWheels',   
         ),
 		'errorHandler'=>array(
 			'errorAction'=>'site/error',

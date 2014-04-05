@@ -7,13 +7,12 @@ $this->pageTitle=Yii::app()->name;
 <?php
 $button='';
 if(Yii::app()->user->isGuest) {
-	$button=
-		TbHtml::linkButton('Login', array(
+	$button= TbHtml::linkButton('Login', array(
 			'color' => TbHtml::BUTTON_COLOR_INFO,
 			'size' => TbHtml::BUTTON_SIZE_LARGE,
 			'url' => array('/site/login')
-			));
-	}
+	));
+}; 
 
 $this->widget('bootstrap.widgets.TbHeroUnit',array(
     'heading'=> CHtml::encode(Yii::app()->name),
@@ -21,15 +20,17 @@ $this->widget('bootstrap.widgets.TbHeroUnit',array(
 )); 
  ?>
 
-
 <?php if(!Yii::app()->user->isGuest) { ?>
 
-<p>You may configure this application by editing the following file(s):</p>
-<ul>
-	<li>Main configuration: <code><?php echo YiiBase::getPathOfAlias('application').'/vrsyslog.ini'; ?></code></li>
-</ul>
-
+<h4>Information:</h4>
+<dl>
+	<dt>Test logs</dt>
+	<dd>Use the <?php echo TbHtml::link('logger', array('site/logger')); ?> tool to generate test log messages.</dd>
+	<br>
+	<dt>Configuration</dt>
+	<dd>Configure this application by editing: <?php echo TbHtml::code(YiiBase::getPathOfAlias('application').'/vrsyslog.ini'); ?></dd>
+</dl>
 <?php }?>
 
-<p>For more details about this application, please visit the <a href="http://codermaverick.github.io/vrsyslog/">repository</a> page.</p>
+<p>For more details, please visit the <a href="http://sickswell.github.io/vrsyslog/">repository</a> page.</p>
 </div>

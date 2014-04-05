@@ -12,6 +12,33 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Displays the 'logger' test page
+	 */
+	public function actionLogger()
+	{	
+		if(Yii::app()->user->isGuest)
+		{
+			$this->redirect(Yii::app()->homeUrl);
+		}
+ 		
+ 		$model=new LoggerForm;
+ 		if(isset($_POST['LoggerForm']))
+ 		{
+ 			// collects user input data
+ 			$model->attributes=$_POST['LoggerForm'];
+ 			// validates user input and sends the Log message
+ 			if($model->validate())
+ 				$syslog = new Syslog($model->facility, $model->severity, $model->hostname);
+				$syslog->SetProcess('Logger');
+ 				$syslog_result = $syslog->Send($model->server, $model->content);
+ 				Yii::app()->user->setFlash(TbHtml::ALERT_COLOR_INFO, '<strong>LOG sent:</strong> ' . $syslog_result);
+ 		}
+ 		// displays the logger form
+	//	$model->content= "Test message " . date("Y-m-d H:i:s");
+		$this->render('logger',array('model'=>$model));	
+	}
+
+	/**
 	 * This is the action to handle external exceptions.
 	 */
 	public function actionError()
